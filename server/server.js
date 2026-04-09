@@ -23,6 +23,7 @@ connectDB();
 // ===========================================
 // Middleware
 // ===========================================
+app.set('trust proxy', 1); // Trust first proxy (Render load balancers)
 app.use(helmet({ crossOriginResourcePolicy: false }));
 app.use(morgan('dev'));
 app.use(cors({
