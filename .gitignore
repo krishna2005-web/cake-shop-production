@@ -1,0 +1,11 @@
+node_modules/
+dist/
+.env
+.DS_Store
+.tempmediaStorage/
+npm-debug.log
+yarn-error.log
+package-lock.json
+
+# If you prefer to keep package-lock, you can remove it from here,
+# but often it's ignored when working across teams. It's safe to track though.
