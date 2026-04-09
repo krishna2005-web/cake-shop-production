@@ -16,7 +16,7 @@ export const authAPI = {
   getCurrentUser: () => api.get('/auth/me'),
   demoLogin: (data) => api.post('/auth/demo-login', data),
   logout: () => api.post('/auth/logout'),
-  getGoogleAuthUrl: () => `${import.meta.env.VITE_API_URL || '/api'}/auth/google`,
+  getGoogleAuthUrl: () => `${api.defaults.baseURL}/auth/google`,
 };
 
 // ---- Cakes API ----
