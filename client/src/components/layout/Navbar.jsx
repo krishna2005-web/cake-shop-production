@@ -80,6 +80,16 @@ export default function Navbar() {
 
         {/* Right Side Actions */}
         <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+          {isAuthenticated && user?.role === 'admin' && (
+            <Link to="/admin" style={{
+              textDecoration: 'none',
+              fontSize: '0.9rem',
+              fontWeight: 600,
+              color: 'var(--color-primary)',
+            }}>
+              👑 Dashboard
+            </Link>
+          )}
           {/* Theme Toggle */}
           <button
             onClick={toggleTheme}
@@ -264,6 +274,22 @@ export default function Navbar() {
               {link.label}
             </Link>
           ))}
+          {isAuthenticated && user?.role === 'admin' && (
+            <Link
+              to="/admin"
+              onClick={() => setMobileOpen(false)}
+              style={{
+                display: 'block',
+                padding: '12px 16px',
+                textDecoration: 'none',
+                color: 'var(--color-primary)',
+                fontWeight: 600,
+                borderRadius: 'var(--radius-sm)',
+              }}
+            >
+              👑 Dashboard
+            </Link>
+          )}
         </div>
       )}
 

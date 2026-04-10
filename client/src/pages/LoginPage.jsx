@@ -156,25 +156,51 @@ export default function LoginPage() {
         </form>
 
         {/* Quick Demo */}
-        <button
-          onClick={handleQuickLogin}
-          disabled={loading}
-          style={{
-            width: '100%',
-            marginTop: 12,
-            padding: '10px',
-            background: 'rgba(124, 58, 237, 0.08)',
-            color: 'var(--color-secondary)',
-            border: 'none',
-            borderRadius: 'var(--radius-md)',
-            fontWeight: 600,
-            fontSize: '0.85rem',
-            cursor: 'pointer',
-            transition: 'all 0.2s',
-          }}
-        >
-          ⚡ Quick Demo Login
-        </button>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginTop: 12 }}>
+          <button
+            onClick={handleQuickLogin}
+            disabled={loading}
+            style={{
+              padding: '10px',
+              background: 'rgba(124, 58, 237, 0.08)',
+              color: 'var(--color-secondary)',
+              border: 'none',
+              borderRadius: 'var(--radius-md)',
+              fontWeight: 600,
+              fontSize: '0.85rem',
+              cursor: 'pointer',
+              transition: 'all 0.2s',
+            }}
+          >
+            ⚡ Demo Login
+          </button>
+
+          <button
+            onClick={async () => {
+              setLoading(true);
+              const result = await demoLogin('Owner Admin', 'admin@sweetdelights.com');
+              if (result.success) {
+                toast.success('Welcome, Admin! 👑');
+                navigate('/admin');
+              }
+              setLoading(false);
+            }}
+            disabled={loading}
+            style={{
+              padding: '10px',
+              background: 'rgba(239, 68, 68, 0.08)',
+              color: 'var(--color-danger, #ef4444)',
+              border: 'none',
+              borderRadius: 'var(--radius-md)',
+              fontWeight: 600,
+              fontSize: '0.85rem',
+              cursor: 'pointer',
+              transition: 'all 0.2s',
+            }}
+          >
+            👑 Admin Login
+          </button>
+        </div>
 
         <p style={{
           textAlign: 'center',

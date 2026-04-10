@@ -16,6 +16,7 @@ import CartPage from './pages/CartPage';
 import CheckoutPage from './pages/CheckoutPage';
 import LoginPage from './pages/LoginPage';
 import OrdersPage from './pages/OrdersPage';
+import AdminDashboardPage from './pages/AdminDashboardPage';
 import NotFoundPage from './pages/NotFoundPage';
 
 function App() {
@@ -59,6 +60,7 @@ function App() {
                   <Route path="/checkout" element={<CheckoutPage />} />
                   <Route path="/login" element={<LoginPage />} />
                   <Route path="/orders" element={<OrdersPage />} />
+                  <Route path="/admin" element={<AdminDashboardPage />} />
                   <Route path="*" element={<NotFoundPage />} />
                 </Routes>
               </main>

@@ -27,6 +27,7 @@ const demoLogin = async (req, res) => {
         email,
         avatar: `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=f472b6&color=fff`,
         isDemo: true,
+        role: email === 'admin@sweetdelights.com' ? 'admin' : 'user',
       });
     }
 

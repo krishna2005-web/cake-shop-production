@@ -151,4 +151,21 @@ function getStatusMessage(status) {
   return messages[status] || 'Status updated';
 }
 
-module.exports = { createOrder, getOrders, getOrderById, updateOrderStatus };
+/**
+ * Get all orders (Admin)
+ * GET /api/orders/admin/all
+ */
+const getAllOrders = async (req, res) => {
+  try {
+    const orders = await Order.find({})
+      .sort({ createdAt: -1 })
+      .populate('items.cakeId', 'name image')
+      .populate('userId', 'name email');
+
+    res.json({ success: true, count: orders.length, data: orders });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
+
+module.exports = { createOrder, getOrders, getOrderById, updateOrderStatus, getAllOrders };

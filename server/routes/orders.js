@@ -3,16 +3,20 @@
 // ===========================================
 const express = require('express');
 const router = express.Router();
-const { isAuthenticated } = require('../middleware/auth');
+const { isAuthenticated, isAdmin } = require('../middleware/auth');
 const {
   createOrder,
   getOrders,
   getOrderById,
   updateOrderStatus,
+  getAllOrders,
 } = require('../controllers/orderController');
 
 // All order routes require authentication
 router.use(isAuthenticated);
+
+// Admin routes
+router.get('/admin/all', isAdmin, getAllOrders);
 
 router.post('/', createOrder);
 router.get('/', getOrders);
