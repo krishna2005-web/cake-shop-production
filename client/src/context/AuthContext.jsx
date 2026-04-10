@@ -28,19 +28,6 @@ export function AuthProvider({ children }) {
     }
   };
 
-  const demoLogin = async (name, email) => {
-    try {
-      const { data } = await authAPI.demoLogin({ name, email });
-      if (data.success) {
-        setUser(data.user);
-        return { success: true };
-      }
-      return { success: false, message: data.message };
-    } catch (error) {
-      return { success: false, message: error.response?.data?.message || 'Login failed' };
-    }
-  };
-
   const loginWithGoogle = () => {
     window.location.href = authAPI.getGoogleAuthUrl();
   };
@@ -60,7 +47,6 @@ export function AuthProvider({ children }) {
       user,
       loading,
       isAuthenticated: !!user,
-      demoLogin,
       loginWithGoogle,
       logout,
       checkAuth,

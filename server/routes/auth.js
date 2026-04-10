@@ -24,13 +24,10 @@ router.get('/google/callback',
   }
 );
 
-// Demo login (for testing without Google OAuth)
-router.post('/demo-login', demoLogin);
-
-// Get current user
+// Auth state check
 router.get('/me', getCurrentUser);
 
-// Logout
+// Logout route
 router.post('/logout', logout);
 
 module.exports = router;

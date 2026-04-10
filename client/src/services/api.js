@@ -14,7 +14,6 @@ const api = axios.create({
 // ---- Auth API ----
 export const authAPI = {
   getCurrentUser: () => api.get('/auth/me'),
-  demoLogin: (data) => api.post('/auth/demo-login', data),
   logout: () => api.post('/auth/logout'),
   getGoogleAuthUrl: () => `${api.defaults.baseURL}/auth/google`,
 };

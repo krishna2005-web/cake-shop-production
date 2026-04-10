@@ -7,42 +7,10 @@ import { useAuth } from '../context/AuthContext';
 import toast from 'react-hot-toast';
 
 export default function LoginPage() {
-  const { isAuthenticated, demoLogin, loginWithGoogle } = useAuth();
-  const navigate = useNavigate();
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [loading, setLoading] = useState(false);
-
+  const { isAuthenticated, loginWithGoogle } = useAuth();
   if (isAuthenticated) {
     return <Navigate to="/" replace />;
   }
-
-  const handleDemoLogin = async (e) => {
-    e.preventDefault();
-    if (!name.trim() || !email.trim()) {
-      toast.error('Please fill in all fields');
-      return;
-    }
-    setLoading(true);
-    const result = await demoLogin(name.trim(), email.trim());
-    if (result.success) {
-      toast.success('Welcome! 🎂');
-      navigate('/');
-    } else {
-      toast.error(result.message || 'Login failed');
-    }
-    setLoading(false);
-  };
-
-  const handleQuickLogin = async () => {
-    setLoading(true);
-    const result = await demoLogin('Demo User', 'demo@sweetdelights.com');
-    if (result.success) {
-      toast.success('Welcome, Demo User! 🎂');
-      navigate('/');
-    }
-    setLoading(false);
-  };
 
   return (
     <div style={{
@@ -99,118 +67,14 @@ export default function LoginPage() {
           Continue with Google
         </button>
 
-        {/* Divider */}
-        <div style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: 12,
-          margin: '20px 0',
-        }}>
-          <div style={{ flex: 1, height: 1, background: 'var(--color-border)' }} />
-          <span style={{ color: 'var(--color-text-light)', fontSize: '0.8rem', fontWeight: 500 }}>
-            or use demo login
-          </span>
-          <div style={{ flex: 1, height: 1, background: 'var(--color-border)' }} />
-        </div>
-
-        {/* Demo Login Form */}
-        <form onSubmit={handleDemoLogin} style={{
-          display: 'flex',
-          flexDirection: 'column',
-          gap: 14,
-        }}>
-          <div>
-            <label style={{ fontWeight: 600, fontSize: '0.82rem', display: 'block', marginBottom: 6 }}>
-              Name
-            </label>
-            <input
-              type="text"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              placeholder="Your name"
-              className="form-input"
-              required
-            />
-          </div>
-          <div>
-            <label style={{ fontWeight: 600, fontSize: '0.82rem', display: 'block', marginBottom: 6 }}>
-              Email
-            </label>
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="your@email.com"
-              className="form-input"
-              required
-            />
-          </div>
-          <button
-            type="submit"
-            disabled={loading}
-            className="btn-primary"
-            style={{ width: '100%', justifyContent: 'center', padding: '12px', marginTop: 4 }}
-          >
-            {loading ? 'Signing in...' : 'Sign In'}
-          </button>
-        </form>
-
-        {/* Quick Demo */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginTop: 12 }}>
-          <button
-            onClick={handleQuickLogin}
-            disabled={loading}
-            style={{
-              padding: '10px',
-              background: 'rgba(124, 58, 237, 0.08)',
-              color: 'var(--color-secondary)',
-              border: 'none',
-              borderRadius: 'var(--radius-md)',
-              fontWeight: 600,
-              fontSize: '0.85rem',
-              cursor: 'pointer',
-              transition: 'all 0.2s',
-            }}
-          >
-            ⚡ Demo Login
-          </button>
-
-          <button
-            onClick={async () => {
-              setLoading(true);
-              const result = await demoLogin('Owner Admin', 'admin@sweetdelights.com');
-              if (result.success) {
-                toast.success('Welcome, Admin! 👑');
-                navigate('/admin');
-              }
-              setLoading(false);
-            }}
-            disabled={loading}
-            style={{
-              padding: '10px',
-              background: 'rgba(239, 68, 68, 0.08)',
-              color: 'var(--color-danger, #ef4444)',
-              border: 'none',
-              borderRadius: 'var(--radius-md)',
-              fontWeight: 600,
-              fontSize: '0.85rem',
-              cursor: 'pointer',
-              transition: 'all 0.2s',
-            }}
-          >
-            👑 Admin Login
-          </button>
-        </div>
 
         <p style={{
           textAlign: 'center',
-          fontSize: '0.75rem',
           color: 'var(--color-text-light)',
-          marginTop: 20,
-          lineHeight: 1.5,
+          fontSize: '0.85rem',
+          marginTop: 24,
         }}>
-          Demo mode: No real credentials needed. 
-          Use any name & email to create a test account.
+          By signing in, you agree to our Terms of Service and Privacy Policy.
         </p>
       </div>
     </div>

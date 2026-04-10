@@ -4,52 +4,6 @@
 const User = require('../models/User');
 
 /**
- * Demo login - for testing without Google OAuth
- * POST /api/auth/demo-login
- */
-const demoLogin = async (req, res) => {
-  try {
-    const { name, email } = req.body;
-
-    if (!name || !email) {
-      return res.status(400).json({
-        success: false,
-        message: 'Name and email are required',
-      });
-    }
-
-    // Find or create demo user
-    let user = await User.findOne({ email });
-
-    if (!user) {
-      user = await User.create({
-        name,
-        email,
-        avatar: `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=f472b6&color=fff`,
-        isDemo: true,
-        role: email === 'admin@sweetdelights.com' ? 'admin' : 'user',
-      });
-    }
-
-    // Store user in session
-    req.session.userId = user._id;
-
-    res.json({
-      success: true,
-      user: {
-        id: user._id,
-        name: user.name,
-        email: user.email,
-        avatar: user.avatar,
-        role: user.role,
-      },
-    });
-  } catch (error) {
-    res.status(500).json({ success: false, message: error.message });
-  }
-};
-
-/**
  * Get current authenticated user
  * GET /api/auth/me
  */
@@ -95,4 +49,4 @@ const logout = (req, res) => {
   });
 };
 
-module.exports = { demoLogin, getCurrentUser, logout };
+module.exports = { getCurrentUser, logout };

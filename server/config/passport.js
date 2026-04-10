@@ -29,10 +29,20 @@ if (process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_ID !== 'your_googl
       },
       async (accessToken, refreshToken, profile, done) => {
         try {
+          let userRole = 'user';
+          if (process.env.ADMIN_EMAIL && profile.emails[0].value === process.env.ADMIN_EMAIL) {
+            userRole = 'admin';
+          }
+
           // Check if user already exists
           let user = await User.findOne({ googleId: profile.id });
 
           if (user) {
+            // Update role if they were just made admin
+            if (user.role !== userRole) {
+              user.role = userRole;
+              await user.save();
+            }
             return done(null, user);
           }
 
@@ -42,6 +52,7 @@ if (process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_ID !== 'your_googl
             name: profile.displayName,
             email: profile.emails[0].value,
             avatar: profile.photos[0].value,
+            role: userRole,
           });
 
           done(null, user);
